@@ -11,8 +11,8 @@ export default function EditProject({ params }: { params: { id: string } }) {
     console.log(proj);
   }
   return (
-    <main className="flex flex-col gap-3">
-      <TitleContainer className="gap-2 items-center">
+    <main className="flex flex-col gap-3 items-center">
+      <TitleContainer className="gap-2 items-center self-stretch">
         <Link
           href={"/"}
           className="text-[#000000A6] text-xs font-inter flex items-center gap-1"
@@ -20,7 +20,7 @@ export default function EditProject({ params }: { params: { id: string } }) {
           <p>{"<"}</p>
           <p>Back</p>
         </Link>
-        <h1 className="text-base font-semibold">Edit project</h1>
+        <h1 className="text-base md:text-2xl font-semibold">Edit project</h1>
       </TitleContainer>
       <ProjectForm buttonText="Save changes" onSubmit={handleSubmit} />
     </main>

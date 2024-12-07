@@ -11,10 +11,20 @@ interface ProjectFormProps {
   defaultValue?: Project;
 }
 
-const FormContext = createContext({});
+interface ProjectFormService {
+  updateField: (key: string, value: unknown) => void;
+}
 
-export function useForm() {
-    return useContext(FormContext)
+const FormContext = createContext<ProjectFormService>({} as ProjectFormService);
+
+export function useControls(name: string) {
+  const { updateField: update } = useContext(FormContext);
+
+  function updateField(value: unknown) {
+    update(name, value);
+  }
+
+  return { updateField };
 }
 
 export function ProjectForm({
@@ -22,15 +32,25 @@ export function ProjectForm({
   onSubmit,
   defaultValue,
 }: ProjectFormProps) {
-  const [result, setResult] = useState<Partial<Project>>({});
+  const [result, setResult] = useState<Partial<Project>>(
+    defaultValue ? defaultValue : {}
+  );
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     onSubmit(result as Project);
   }
+
+  function updateField(key: string, value: unknown) {
+    setResult({ ...result, [key]: value });
+  }
+
+  const contextValues: ProjectFormService = { updateField };
+
   return (
-    <FormContext.Provider value={{ result }}>
+    <FormContext.Provider value={contextValues}>
       <form
-        className="bg-white flex flex-col px-4 py-8 mb-10 gap-4"
+        className="bg-white w-full flex flex-col px-4 py-8 md:px-10 md:py-8 max-w-2xl mb-10 gap-4"
         onSubmit={handleSubmit}
       >
         <Input name="title" label="Project name" defaultValue="Super texto" />

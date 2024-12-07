@@ -31,10 +31,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-gray-200 antialiased min-h-screen flex flex-col`}
       >
-        <TitleContainer>
-          <Link href={"/"}
-            className="font-semibold text-neutral-300"
-          >
+        <TitleContainer className="md:!py-3">
+          <Link href={"/"} className="font-semibold text-neutral-300">
             LOGO
           </Link>
         </TitleContainer>

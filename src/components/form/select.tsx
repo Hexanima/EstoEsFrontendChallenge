@@ -1,4 +1,4 @@
-import { useForm } from "./project";
+import { useControls } from "./project";
 
 interface Option {
   value: string;
@@ -12,7 +12,8 @@ interface SelectProps {
   defaultValue?: string;
 }
 export function Select({ options, label, name, defaultValue }: SelectProps) {
-  const data = useForm();
+  const {updateField} = useControls(name);
+
   return (
     <div className="flex flex-col gap-1 font-normal">
       <label className="text-sm" htmlFor={name}>
@@ -23,6 +24,7 @@ export function Select({ options, label, name, defaultValue }: SelectProps) {
         name={name}
         className="rounded border border-neutral-300 p-2 bg-white"
         defaultValue={defaultValue ? defaultValue : ""}
+        onChange={(e) => updateField(e.target.value)}
       >
         <option disabled hidden value={""} className="text-[#595959]">
           Select an option

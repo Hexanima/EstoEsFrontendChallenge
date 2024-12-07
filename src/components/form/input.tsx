@@ -1,3 +1,5 @@
+import { useControls } from "./project";
+
 interface InputProps {
   label: string;
   name: string;
@@ -5,6 +7,7 @@ interface InputProps {
 }
 
 export function Input({ label, name, defaultValue }: InputProps) {
+  const { updateField } = useControls(name);
   return (
     <div className="flex flex-col gap-1 font-normal">
       <label className="text-sm" htmlFor={name}>
@@ -15,6 +18,10 @@ export function Input({ label, name, defaultValue }: InputProps) {
         id={name}
         name={name}
         defaultValue={defaultValue}
+        onChange={(e) => {
+          const { value } = e.target;
+          updateField(value);
+        }}
       />
     </div>
   );
